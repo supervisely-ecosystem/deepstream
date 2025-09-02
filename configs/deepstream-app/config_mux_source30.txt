@@ -1,0 +1,415 @@
+####################################################################################################
+# SPDX-FileCopyrightText: Copyright (c) 2020 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+####################################################################################################
+
+[property]
+algorithm-type=1
+batch-size=30
+#max-fps-control disables (=0) and enables (=1)
+#throttling of buffers in muxer to roughly achieve
+#confligured max-fps setting
+max-fps-control=0
+overall-max-fps-n=500
+overall-max-fps-d=1
+overall-min-fps-n=5
+overall-min-fps-d=1
+max-same-source-frames=1
+
+[source-config-0]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=30
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+## Max number of frames allowed to be muxed per output batch buffer; uint
+max-num-frames-per-batch=1
+
+[source-config-1]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-2]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-3]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-4]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-5]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-6]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-7]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-8]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-9]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-10]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-11]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-12]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-13]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-14]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-15]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-16]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-17]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-18]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-19]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-20]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-21]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-22]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-23]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-24]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-25]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-26]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-27]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-28]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
+
+[source-config-29]
+## Numerator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-n=120
+## Denominator of this source’s max frame rate fps_n/fps_d; uint
+max-fps-d=1
+## Numerator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-n=5
+## Denominator of this source’s min frame rate fps_n/fps_d; uint
+min-fps-d=1
+## Priority of this source; unsigned-int
+priority=0
+max-num-frames-per-batch=1
