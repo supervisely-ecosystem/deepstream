@@ -1,6 +1,6 @@
 [property]
 gpu-id=0
-model-engine-file=../../models/best.engine
+model-engine-file=../../models/best_single_input.engine
 labelfile-path=../../models/labels.txt
 batch-size=1
 process-mode=1
@@ -10,8 +10,8 @@ num-detected-classes=6
 interval=0
 gie-unique-id=1
 cluster-mode=2
-output-blob-names=labels;boxes;scores
 infer-dims=3;640;640
+maintain-aspect-ratio=1
 
 [class-attrs-all]
 pre-cluster-threshold=0.25
