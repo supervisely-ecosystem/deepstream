@@ -1,0 +1,89 @@
+{
+    "classes": [
+        {
+            "title": "horse",
+            "description": "",
+            "shape": "rectangle",
+            "color": "#FE9A03",
+            "geometry_config": {},
+            "id": 99044,
+            "hotkey": ""
+        },
+        {
+            "title": "horse head",
+            "description": "",
+            "shape": "rectangle",
+            "color": "#AEFF01",
+            "geometry_config": {},
+            "id": 99045,
+            "hotkey": ""
+        },
+        {
+            "title": "number plate",
+            "description": "",
+            "shape": "rectangle",
+            "color": "#6200FF",
+            "geometry_config": {},
+            "id": 99046,
+            "hotkey": ""
+        },
+        {
+            "title": "rider",
+            "description": "",
+            "shape": "rectangle",
+            "color": "#02C2FF",
+            "geometry_config": {},
+            "id": 99047,
+            "hotkey": ""
+        },
+        {
+            "title": "yellow stick",
+            "description": "",
+            "shape": "rectangle",
+            "color": "#F6F016",
+            "geometry_config": {},
+            "id": 99048,
+            "hotkey": ""
+        },
+        {
+            "title": "white stick",
+            "description": "",
+            "shape": "rectangle",
+            "color": "#FF03D6",
+            "geometry_config": {},
+            "id": 99049,
+            "hotkey": ""
+        }
+    ],
+    "tags": [
+        {
+            "name": "Completed",
+            "value_type": "none",
+            "color": "#82CA35",
+            "id": 13838,
+            "hotkey": "",
+            "applicable_type": "all",
+            "classes": [],
+            "target_type": "all"
+        },
+        {
+            "name": "confidence",
+            "value_type": "any_number",
+            "color": "#8A0F13",
+            "id": 13839,
+            "hotkey": "",
+            "applicable_type": "all",
+            "classes": [],
+            "target_type": "all"
+        }
+    ],
+    "projectType": "images",
+    "projectSettings": {
+        "multiView": {
+            "enabled": false,
+            "tagName": null,
+            "tagId": null,
+            "isSynced": false
+        }
+    }
+}
