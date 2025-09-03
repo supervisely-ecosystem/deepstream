@@ -60,23 +60,41 @@ class SingleInputDFINE(nn.Module):
         
     def forward(self, images):
         """
-        Forward pass with single input
-        Args:
-            images: [N, 3, 640, 640] - input images
-        Returns:
-            outputs: dict with labels, boxes, scores
+        images: tensor N x 3 x H x W, DeepStream даёт BGR 0..255 NCHW
+        Возвращаем: (labels, boxes, scores) — все в float32 для совместимости с TensorRT.
         """
-        # Dynamically adapt batch size
+        # Ожидаем images в NCHW, dtype может быть uint8/float
+        # Приводим к float32
+        images = images.float()
+
+        # Если DeepStream даёт BGR, поменяем на RGB
+        # (если ты уверен, что DeepStream уже RGB — закомментируй следующую строку)
+        images = images[:, [2, 1, 0], :, :]  # BGR -> RGB
+
+        images = images / 255.0
+        mean = torch.tensor([0.485, 0.456, 0.406], device=images.device).view(1, 3, 1, 1)
+        std  = torch.tensor([0.229, 0.224, 0.225], device=images.device).view(1, 3, 1, 1)
+        images = (images - mean) / std
+
         batch_size = images.shape[0]
         target_sizes = self.orig_target_sizes.expand(batch_size, -1)
+        raw_outputs = self.model(images)
+
+        labels, boxes, scores = self.postprocessor(raw_outputs, target_sizes)
+
+        labels = labels.to(torch.float32)
+
+        boxes = boxes.to(torch.float32)
+        scores = scores.to(torch.float32)
+
+        return {
+            "labels": labels,
+            "boxes": boxes,
+            "scores": scores
+        }
+
+                
         
-        # Main inference
-        outputs = self.model(images)
-        
-        # Post-processing with fixed sizes
-        outputs = self.postprocessor(outputs, target_sizes)
-        
-        return outputs
 
 def export_to_onnx(model, output_path: str):
     """Export to ONNX with single input"""

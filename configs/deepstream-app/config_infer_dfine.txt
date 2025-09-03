@@ -1,6 +1,9 @@
 [property]
+net-scale-factor=0.017352074
+offsets=123.675;116.28;103.53
+network-input-order=0
 gpu-id=0
-model-engine-file=../../models/best_new_output.engine
+model-engine-file=../../models/fix_int32.engine
 labelfile-path=../../models/labels.txt
 batch-size=1
 process-mode=1
@@ -12,9 +15,7 @@ gie-unique-id=1
 cluster-mode=2
 infer-dims=3;640;640
 maintain-aspect-ratio=1
-
 output-blob-names=labels;boxes;scores
-
 parse-bbox-func-name=NvDsInferParseCustomDFINE
 custom-lib-path=/opt/nvidia/deepstream/deepstream/lib/libnvds_dfine_parser.so
 
@@ -22,3 +23,25 @@ custom-lib-path=/opt/nvidia/deepstream/deepstream/lib/libnvds_dfine_parser.so
 pre-cluster-threshold=0.01
 topk=300
 nms-iou-threshold=0.45
+
+
+[class-attrs-0]
+pre-cluster-threshold=0.3
+
+[class-attrs-1]
+pre-cluster-threshold=0.3
+
+[class-attrs-2] 
+pre-cluster-threshold=0.3
+
+[class-attrs-3]
+pre-cluster-threshold=0.3
+
+[class-attrs-4]
+pre-cluster-threshold=0.3
+
+[class-attrs-5]
+pre-cluster-threshold=0.3
+
+[class-attrs-6]
+pre-cluster-threshold=0.3

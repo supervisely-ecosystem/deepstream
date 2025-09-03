@@ -1,6 +1,7 @@
 #include <cstring>
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 #include "nvdsinfer_custom_impl.h"
 
 // Custom parser for D-FINE model outputs
@@ -31,44 +32,60 @@ extern "C" bool NvDsInferParseCustomDFINE(
     }
 
     // Get data pointers
-    const int64_t* labels = static_cast<const int64_t*>(labelsLayer->buffer);
+    const float* labels = static_cast<const float*>(labelsLayer->buffer);
     const float* boxes = static_cast<const float*>(boxesLayer->buffer);
     const float* scores = static_cast<const float*>(scoresLayer->buffer);
 
     // Parse detections
-    int numDetections = labelsLayer->inferDims.d[0]; // Should be 300
+    int numDetections = labelsLayer->inferDims.d[0];
     
-    std::cout << "=== DFINE PARSER DEBUG ===" << std::endl;
-    std::cout << "numDetections: " << numDetections << std::endl;
-    std::cout << "threshold: " << detectionParams.perClassThreshold[0] << std::endl;
+    static int frame_count = 0;
+    frame_count++;
+    
+    bool debug_this_frame = (frame_count % 30 == 0);
+    
+    if (debug_this_frame) {
+        std::cout << "=== FRAME " << frame_count << " DEBUG ===" << std::endl;
+        std::cout << "numDetections: " << numDetections << std::endl;
+        std::cout << "threshold: " << detectionParams.perClassThreshold[0] << std::endl;
+    }
     
     int validDetections = 0;
+    int highConfDetections = 0;
+    
     for (int i = 0; i < numDetections; i++) {
         float score = scores[i];
         
-        // Debug first 10 detections
-        if (i < 10) {
-            std::cout << "Detection " << i << ": score=" << score << ", label=" << labels[i] 
-                      << ", box=[" << boxes[i*4] << "," << boxes[i*4+1] << "," 
-                      << boxes[i*4+2] << "," << boxes[i*4+3] << "]" << std::endl;
+        // Skip NaN values
+        if (std::isnan(score) || std::isnan(boxes[i*4]) || std::isnan(boxes[i*4+1]) || 
+            std::isnan(boxes[i*4+2]) || std::isnan(boxes[i*4+3])) {
+            continue;
         }
         
-        // Filter by confidence threshold  
-        if (score < detectionParams.perClassThreshold[0]) {
+        // Увеличим threshold для качественной фильтрации
+        if (score < 0.3f) {
             continue;
         }
         
         validDetections++;
+        if (score > 0.5f) highConfDetections++;
+        
+        // Debug только первые 3 валидные детекции
+        if (debug_this_frame && validDetections <= 3) {
+            std::cout << "Detection " << validDetections << ": score=" << score << ", label=" << labels[i] 
+                      << ", box=[" << boxes[i*4] << "," << boxes[i*4+1] << "," 
+                      << boxes[i*4+2] << "," << boxes[i*4+3] << "]" << std::endl;
+        }
 
         NvDsInferParseObjectInfo obj;
-        obj.classId = static_cast<unsigned int>(labels[i]);
-        obj.detectionConfidence = score;
+        obj.classId = static_cast<unsigned int>(std::lround(labels[i]));
+        obj.detectionConfidence = scores[i];
 
-        // Boxes format: [x1, y1, x2, y2] normalized
-        float x1 = boxes[i * 4 + 0] * networkInfo.width;
-        float y1 = boxes[i * 4 + 1] * networkInfo.height;
-        float x2 = boxes[i * 4 + 2] * networkInfo.width;
-        float y2 = boxes[i * 4 + 3] * networkInfo.height;
+        // Boxes уже в пикселях для 640x640
+        float x1 = boxes[i * 4 + 0];
+        float y1 = boxes[i * 4 + 1]; 
+        float x2 = boxes[i * 4 + 2];
+        float y2 = boxes[i * 4 + 3];
 
         obj.left = static_cast<unsigned int>(std::max(0.0f, x1));
         obj.top = static_cast<unsigned int>(std::max(0.0f, y1));
@@ -78,8 +95,11 @@ extern "C" bool NvDsInferParseCustomDFINE(
         objectList.push_back(obj);
     }
 
-    std::cout << "Total valid detections: " << validDetections << "/" << numDetections << std::endl;
-    std::cout << "=========================" << std::endl;
+    if (debug_this_frame) {
+        std::cout << "Valid detections: " << validDetections << "/" << numDetections;
+        std::cout << " (High conf >0.5: " << highConfDetections << ")" << std::endl;
+        std::cout << "=========================" << std::endl;
+    }
 
     return true;
 }
