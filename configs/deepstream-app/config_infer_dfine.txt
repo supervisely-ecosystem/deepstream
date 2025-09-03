@@ -1,4 +1,3 @@
-# config_infer_dfine.txt
 [property]
 gpu-id=0
 model-engine-file=../../models/best_new_output.engine
@@ -14,7 +13,12 @@ cluster-mode=2
 infer-dims=3;640;640
 maintain-aspect-ratio=1
 
+output-blob-names=labels;boxes;scores
+
+parse-bbox-func-name=NvDsInferParseCustomDFINE
+custom-lib-path=/opt/nvidia/deepstream/deepstream/lib/libnvds_dfine_parser.so
+
 [class-attrs-all]
-pre-cluster-threshold=0.25
+pre-cluster-threshold=0.01
 topk=300
 nms-iou-threshold=0.45
