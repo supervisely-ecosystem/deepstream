@@ -1,9 +1,9 @@
 [property]
-net-scale-factor=0.017352074
-offsets=123.675;116.28;103.53
+net-scale-factor=1.0
+offsets=0.0;0.0;0.0
 network-input-order=0
 gpu-id=0
-model-engine-file=../../models/fix_int32.engine
+model-engine-file=../../models/final.engine
 labelfile-path=../../models/labels.txt
 batch-size=1
 process-mode=1
@@ -41,7 +41,4 @@ pre-cluster-threshold=0.3
 pre-cluster-threshold=0.3
 
 [class-attrs-5]
-pre-cluster-threshold=0.3
-
-[class-attrs-6]
 pre-cluster-threshold=0.3

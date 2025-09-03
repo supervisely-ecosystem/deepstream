@@ -27,7 +27,7 @@ codec=1
 enc-type=0
 sync=0
 bitrate=4000000
-output-file=output_int32_fix.mp4
+output-file=final.mp4
 source-id=0
 
 [osd]
@@ -47,7 +47,7 @@ live-source=0
 buffer-pool-size=4
 batch-size=1
 batched-push-timeout=40000
-width=6e40
+width=640
 height=640
 enable-padding=0
 nvbuf-memory-type=0
@@ -55,7 +55,7 @@ nvbuf-memory-type=0
 [primary-gie]
 enable=1
 gpu-id=0
-model-engine-file=../../models/fix_int32.engine
+model-engine-file=../../models/final.engine
 batch-size=1
 bbox-border-color0=1;0;0;1
 bbox-border-color1=0;1;1;1

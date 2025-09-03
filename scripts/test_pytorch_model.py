@@ -30,7 +30,7 @@ def load_model(checkpoint_path, config_path):
     else:
         state_dict = checkpoint
 
-    model = cfg.model  # получаем модель
+    model = cfg.model  
     model.load_state_dict(state_dict)
     model.eval()
 
@@ -38,8 +38,8 @@ def load_model(checkpoint_path, config_path):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
 
-    print(f"Модель загружена: {checkpoint_path}")
-    print(f"Устройство: {device}")
+    print(f"Model loaded: {checkpoint_path}")
+    print(f"Device: {device}")
     return cfg, model, device
 
 
@@ -108,10 +108,10 @@ def main():
     # Check files
     for path in [checkpoint_path, config_path, video_path]:
         if not os.path.exists(path):
-            print(f"Файл не найден: {path}")
+            print(f"File not founded: {path}")
             return
     
-    print("=== Тест PyTorch D-FINE модели ===")
+    print("===Test pytorch dfine ===")
     
     # Load model
     cfg, model, device = load_model(checkpoint_path, config_path)
@@ -119,7 +119,7 @@ def main():
     # Open video
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
-        print(f"Не удается открыть видео: {video_path}")
+        print(f"Can not open video: {video_path}")
         return
     
     # Video parameters
@@ -128,7 +128,7 @@ def main():
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     
-    print(f"Видео: {width}x{height}, {fps} FPS, {total_frames} кадров")
+    print(f"Video: {width}x{height}, {fps} FPS, {total_frames} frames")
     
     # Setup video writer
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -140,7 +140,7 @@ def main():
     max_confidence = 0.0
     detection_stats = []
     
-    print("\nОбработка видео...")
+    print("\nProccessing video...")
     
     while True:
         ret, frame = cap.read()
@@ -168,9 +168,9 @@ def main():
         
         # Debug output structure on first frame
         if processed_count == 1:
-            print(f"\nТип выходов: {type(outputs)}")
+            print(f"\nOutput type: {type(outputs)}")
             if isinstance(outputs, (list, tuple)):
-                print(f"Длина: {len(outputs)}")
+                print(f"Length: {len(outputs)}")
                 for i, item in enumerate(outputs):
                     print(f"  outputs[{i}]: {type(item)}")
                     if isinstance(item, dict):
@@ -200,7 +200,7 @@ def main():
             
         except Exception as e:
             if processed_count == 1:
-                print(f"Ошибка парсинга: {e}")
+                print(f"Parser error: {e}")
             boxes = scores = labels = np.array([])
         
         # Postprocess coordinates
@@ -241,31 +241,31 @@ def main():
         
         # Debug every 10 processed frames
         if processed_count % 10 == 0:
-            print(f"Обработано {processed_count} кадров из {frame_count} всего: "
-                  f"детекций >0.15: {frame_detections}, "
-                  f"макс. conf: {valid_scores.max():.3f}" if frame_detections > 0 
-                  else f"детекций: 0")
+            print(f"{processed_count} frames processed from {frame_count} total: "
+                  f"detections >0.15: {frame_detections}, "
+                  f"max. conf: {valid_scores.max():.3f}" if frame_detections > 0 
+                  else f"detections: 0")
     
     # Close files
     cap.release()
     out.release()
     
     # Final statistics
-    print(f"\n=== РЕЗУЛЬТАТЫ ===")
-    print(f"Обработано кадров: {processed_count} из {frame_count}")
-    print(f"Всего детекций >0.15: {total_detections}")
-    print(f"Максимальная уверенность: {max_confidence:.3f}")
+    print(f"\n=== RESULTS ===")
+    print(f"Frames processed: {processed_count} из {frame_count}")
+    print(f"Total detections >0.15: {total_detections}")
+    print(f"Max confidence: {max_confidence:.3f}")
     if processed_count > 0:
-        print(f"Среднее детекций на кадр: {total_detections/processed_count:.2f}")
+        print(f"Avrage conf per frame : {total_detections/processed_count:.2f}")
     
     # Top detections
     if detection_stats:
         detection_stats.sort(key=lambda x: x[2], reverse=True)
-        print(f"\nТОП-5 лучших детекций:")
+        print(f"\nTop-5 better detectios:")
         for i, (frame_num, count, conf) in enumerate(detection_stats[:5]):
-            print(f"  {i+1}. Кадр {frame_num}: {count} детекций, макс. conf: {conf:.3f}")
+            print(f"  {i+1}. Frame {frame_num}: {count} det, max. conf: {conf:.3f}")
     
-    print(f"\nРезультат сохранен: {output_path}")
+    print(f"\nResult saved to: {output_path}")
 
 if __name__ == "__main__":
     main()

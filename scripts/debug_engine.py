@@ -14,7 +14,7 @@ engine = load_engine("../models/fix_rgb.engine")
 context = engine.create_execution_context()
 
 # prepare input (read same frame)
-frame = cv2.imread("../data/test_video_640_frame10.jpg")  # подготовь один png 640x640 (тот же кадр)
+frame = cv2.imread("../data/test_video_640_frame10.jpg")  #
 frame = cv2.resize(frame, (640,640))
 # DeepStream дает BGR 0..255 NCHW, model expects that (we embedded preprocessing)
 inp = frame.transpose(2,0,1).astype(np.float32)[None, ...]
