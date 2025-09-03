@@ -142,7 +142,7 @@ nvbuf-memory-type=0
 [primary-gie]
 enable=1
 gpu-id=0
-model-engine-file=../../models/best.engine
+model-engine-file=../../models/best_new_output.engine
 batch-size=1
 #Required by the app for OSD, not a plugin property
 bbox-border-color0=1;0;0;1

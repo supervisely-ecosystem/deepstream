@@ -22,7 +22,7 @@ sys.path.insert(0, workspace_root)
 
 def load_deim_model(checkpoint_path: str, config_path: str):
     """Load DEIM model like in original code"""
-    from engine.core import YAMLConfig  
+    from engine.core import YAMLConfig
     
     # Load configuration
     cfg = YAMLConfig(config_path)
@@ -157,7 +157,7 @@ def main():
                        help="Path to model config")
     parser.add_argument("--output_dir", type=str, default="../models",
                        help="Output directory")
-    parser.add_argument("--model_name", type=str, default="best_single_input",
+    parser.add_argument("--model_name", type=str, default="best_new_output",
                        help="Output model name (without extension)")
     parser.add_argument("--fp16", action="store_true", default=True,
                        help="Use FP16 for TensorRT")

@@ -1,6 +1,7 @@
+# config_infer_dfine.txt
 [property]
 gpu-id=0
-model-engine-file=../../models/best_single_input.engine
+model-engine-file=../../models/best_new_output.engine
 labelfile-path=../../models/labels.txt
 batch-size=1
 process-mode=1
