@@ -202,7 +202,8 @@ The `predictions.json` file contains one JSON object per line (JSON Lines format
 - `track_id` — unique tracking ID for the object
 - `class_name` — class name from labels.txt (or "unknown" if not set)
 
-## 9. DeepStream Notes and Workflow
+---
+# DeepStream Notes and Workflow
 
 ### What is NVIDIA DeepStream?
 
@@ -217,8 +218,6 @@ NVIDIA DeepStream is an SDK for accelerated video analytics on GPUs. It allows b
 
 **nvSORT** is NVIDIA’s GPU-optimized implementation of the SORT tracker. It delivers high FPS because it is lightweight, avoids heavy ReID computations, runs fully on GPU, and is tightly integrated into DeepStream.
 
----
-
 ### Overall Workflow
 
 Connecting the D-FINE detector to DeepStream involves three main stages:
@@ -228,8 +227,6 @@ Connecting the D-FINE detector to DeepStream involves three main stages:
 3. Configuring DeepStream files and running inference
 
 Below we summarize key insights and issues encountered in each stage.
-
----
 
 ### 1. Building the Image and Setting Up the Environment
 
@@ -241,30 +238,74 @@ Below we summarize key insights and issues encountered in each stage.
 
 Additionally, the repository includes dependencies from the **DEIM project**, installed via `setup.py`. Ensure these dependencies are correctly installed to avoid conversion errors.
 
----
-
 ### 2. Model Conversion Insights
 
 During conversion from PyTorch to TensorRT, several important issues were discovered:
 
 1. **Multiple inputs issue**: DeepStream expects YOLO-like models with a single input. The D-FINE detector originally had two inputs: an image tensor and metadata with the original image size. Since we use a fixed input size, the metadata was treated as a constant, allowing us to hardcode it and remove the second input during conversion.
 
-   * This resolved initial loading issues, and inference started successfully.
+```python
+class SingleInputDFINEEmbeddedScaling(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        self.model = cfg.model.deploy()
+        self.postprocessor = cfg.postprocessor.deploy()
+
+        # Fixed target size replaces the second input (metadata)
+        self.register_buffer('orig_target_sizes', torch.tensor([[640, 640]], dtype=torch.int32))
+
+    def forward(self, images):
+        batch_size = images.shape[0]
+        target_sizes = self.orig_target_sizes.expand(batch_size, -1)
+        outputs = self.model(images)
+        return self.postprocessor(outputs, target_sizes)
+```
+
+This resolved initial loading issues, and inference started successfully.
 
 2. **Output format mismatch**: YOLO and D-FINE models produce different output structures. Instead of modifying the conversion script to mimic YOLO outputs, we implemented a **custom C++ parser** (`nvds_dfine_parser.cpp`) to correctly unpack D-FINE outputs in DeepStream.
 
 3. **Normalization mismatch**: In PyTorch, channels are normalized separately (e.g., \[0.485, 0.456, 0.406]), while DeepStream applies a single global scale factor. To resolve this, the TensorRT conversion code was modified to apply **per-channel normalization**, ensuring correct detection results.
 
----
+```python
+class SingleInputDFINEEmbeddedScaling(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        self.model = cfg.model.deploy()
+        self.postprocessor = cfg.postprocessor.deploy()
+
+        # Per-channel ImageNet normalization
+        self.register_buffer('mean', torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1))
+        self.register_buffer('std', torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1))
+
+    def forward(self, images):
+        images = images.float()
+        images = images[:, [2, 1, 0], :, :]
+        images = images / 255.0
+        images = (images - self.mean) / self.std
+
+        batch_size = images.shape[0]
+        target_sizes = self.orig_target_sizes.expand(batch_size, -1)
+        outputs = self.model(images)
+        return self.postprocessor(outputs, target_sizes)
+```
+
+Above are the most relevant fragments from convert.py .
+The full text of the script is stored in the root directory of the repository and can be run directly.
 
 ### 3. Configuring DeepStream
 
-Configuration files are stored in `configs/deepstream-app/`. DeepStream is **very sensitive** to even small config errors, so edit carefully.
+The configations files were copied from the system files of a container built from a deepstream image:
+
+```bash
+cp -r /opt/nvidia/deepstream/deepstream-6.4/samples/configs/* /workspace/configs/
+```
+And now they are stored in `configs/deepstream-app/`. DeepStream is **very sensitive** to even small config errors, so edit carefully.
 
 * The default reference file is `config_infer_primary.txt`.
 * A custom config file `config_infer_dfine.txt` was created for the D-FINE detector.
 
-#### Example changes in `config_infer_dfine.txt`:
+#### Key parameters to update in `config_infer_dfine.txt`:
 
 ```ini
 [property]
@@ -280,7 +321,7 @@ pre-cluster-threshold=0.3
 # repeat [class-attrs-N] for each class with custom thresholds
 ```
 
-#### Example changes in `source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt`:
+#### Key parameters to update in `source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt`:
 
 ```ini
 [source0]
@@ -294,7 +335,7 @@ model-engine-file=../../models/your_model.engine
 config-file=config_infer_dfine.txt
 ```
 
-#### Example of `labels.txt`:
+#### The correct file `labels.txt`:
 
 ```
 horse
@@ -307,13 +348,9 @@ white stick
 
 ⚠️ Ensure all referenced files exist. Paths assume execution from `configs/deepstream-app/`. If running from project root, adjust paths accordingly.
 
----
-
 ### 4. Alternative Outputs
 
 Instead of saving results only as `.mp4` videos, a **custom C module** (`deepstream_save_predictions.c`) was written to dump predictions into JSON format. This provides flexibility for downstream processing or custom integrations.
-
----
 
 ### 5. Performance
 
