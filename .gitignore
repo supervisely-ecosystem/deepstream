@@ -1,5 +1,9 @@
-/models
-/data
 /RT-DETR-main
+/legacy
+/deim
 *.mp4
 *.avi
+*.jpg
+*.pth
+*.onnx
+*.engine
