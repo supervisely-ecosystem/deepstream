@@ -27,7 +27,7 @@ codec=1
 enc-type=0
 sync=0
 bitrate=4000000
-output-file=final.mp4
+output-file=test.mp4
 source-id=0
 
 [osd]
@@ -55,7 +55,7 @@ nvbuf-memory-type=0
 [primary-gie]
 enable=1
 gpu-id=0
-model-engine-file=../../models/final.engine
+model-engine-file=../../models/test.engine
 batch-size=1
 bbox-border-color0=1;0;0;1
 bbox-border-color1=0;1;1;1

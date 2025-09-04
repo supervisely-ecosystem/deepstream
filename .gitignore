@@ -1,9 +1,11 @@
 /RT-DETR-main
 /legacy
-/deim
+/deim.egg-info
+/__pycache__
 *.mp4
 *.avi
 *.jpg
 *.pth
 *.onnx
 *.engine
+*.pyc

@@ -21,7 +21,7 @@ sys.path.insert(0, workspace_root)
 
 def load_deim_model(checkpoint_path: str, config_path: str):
     """Load DEIM model"""
-    from engine.core import YAMLConfig
+    from deim.engine.core import YAMLConfig 
     
     cfg = YAMLConfig(config_path)
     checkpoint = torch.load(checkpoint_path, map_location='cpu')
@@ -121,9 +121,9 @@ def export_to_tensorrt(onnx_path: str, output_path: str, fp16: bool = False):
 
 def main():
     parser = argparse.ArgumentParser(description="Simple D-FINE converter with embedded scaling")
-    parser.add_argument("--pth_path", type=str, default="../models/best.pth")
-    parser.add_argument("--config_path", type=str, default="../models/model_config.yml")
-    parser.add_argument("--output_dir", type=str, default="../models")
+    parser.add_argument("--pth_path", type=str, default="models/best.pth")
+    parser.add_argument("--config_path", type=str, default="models/model_config.yml")
+    parser.add_argument("--output_dir", type=str, default="models")
     parser.add_argument("--model_name", type=str, default="best_simple_fixed")
     parser.add_argument("--fp16", action="store_true", help="Enable FP16 TensorRT export")
     
