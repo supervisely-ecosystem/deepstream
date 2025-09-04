@@ -1,0 +1,12 @@
+
+(deepstream-app:601810): GLib-CRITICAL **: 10:40:22.577: g_strchug: assertion 'string != NULL' failed
+
+(deepstream-app:601810): GLib-CRITICAL **: 10:40:22.577: g_strchomp: assertion 'string != NULL' failed
+0:00:00.019826352 [35m601810[00m 0x55af456039a0 [33;01mWARN   [00m [00m         nvmsgbroker gstnvmsgbroker.cpp:401:legacy_gst_nvmsgbroker_start:<sink_sub_bin_sink2>[00m error: unable to open shared library
+0:00:00.019862970 [35m601810[00m 0x55af456039a0 [33;01mWARN   [00m [00m            basesink gstbasesink.c:5878:gst_base_sink_change_state:<sink_sub_bin_sink2>[00m error: Failed to start
+ERROR from sink_sub_bin_sink2: Could not initialize supporting library.
+Debug info: gstnvmsgbroker.cpp(401): legacy_gst_nvmsgbroker_start (): /GstPipeline:pipeline/GstBin:sink_sub_bin2/GstNvMsgBroker:sink_sub_bin_sink2:
+unable to open shared library
+ERROR from sink_sub_bin_sink2: GStreamer error: state change failed and some element failed to post a proper error message with the reason for the failure.
+Debug info: ../libs/gst/base/gstbasesink.c(5878): gst_base_sink_change_state (): /GstPipeline:pipeline/GstBin:sink_sub_bin2/GstNvMsgBroker:sink_sub_bin_sink2:
+Failed to start
